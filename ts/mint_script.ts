@@ -43,7 +43,7 @@ async function main() {
 
     // Get RFQ
     const pair = `${COLLATERAL_ASSET}/USDe`;
-    const rfqData = await getRfq(pair, "ALGO", SIDE, AMOUNT, BENEFACTOR);
+    const rfqData = await getRfq(pair, "ALGO", SIDE, String(AMOUNT), BENEFACTOR);
 
     console.log("RFQ", rfqData);
 

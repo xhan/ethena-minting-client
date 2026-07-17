@@ -12,30 +12,17 @@ import { mainnet } from "viem/chains";
 import {
   OrderSending,
   OrderSigning,
-  Rfq,
   SignatureType,
   Signature,
 } from "./types";
+import { Rfq } from "./rfq";
 import {
   DOMAIN,
-  ETHENA_URL,
   RPC_URL,
   MINT_ADDRESS,
   ORDER_TYPE,
 } from "./constants";
-
-export async function getRfq(
-  pair: string,
-  type: string,
-  side: "MINT" | "REDEEM",
-  size: number,
-  benefactor: Address
-) {
-  const response = await fetch(
-    `${ETHENA_URL}rfq?pair=${pair}&type_=${type}&side=${side}&size=${size}&benefactor=${benefactor}`
-  );
-  return (await response.json()) as Rfq;
-}
+export { getRfq } from "./rfq";
 
 export async function createMintOrder(
   rfqData: Rfq,
