@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createOrder = createOrder;
 exports.getOrderTypedData = getOrderTypedData;
 exports.submitOrder = submitOrder;
+exports.getOrderConfirmation = getOrderConfirmation;
 const protocol_1 = require("./protocol");
 function createOrder(rfq, benefactor, beneficiary, options = {}) {
     const now = options.now ?? Date.now();
@@ -51,6 +52,20 @@ async function submitOrder(order, signature, fetchImpl = fetch) {
             ? String(result.error)
             : `HTTP ${response.status}`;
         throw new Error(`Ethena order 提交失败: ${message}`);
+    }
+    return result;
+}
+async function getOrderConfirmation(orderId, fetchImpl = fetch, options = {}) {
+    const params = new URLSearchParams({ order_id: orderId });
+    const response = await fetchImpl(`${protocol_1.ETHENA_URL}order-confirmation?${params}`, {
+        signal: options.signal,
+    });
+    const result = await response.json();
+    if (!response.ok || (result && typeof result === "object" && "error" in result)) {
+        const message = result && typeof result === "object" && "error" in result
+            ? String(result.error)
+            : `HTTP ${response.status}`;
+        throw new Error(`Ethena order confirmation 查询失败: ${message}`);
     }
     return result;
 }

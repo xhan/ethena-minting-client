@@ -83,3 +83,22 @@ export async function submitOrder(
   }
   return result;
 }
+
+export async function getOrderConfirmation(
+  orderId: string,
+  fetchImpl: typeof fetch = fetch,
+  options: { signal?: AbortSignal } = {}
+) {
+  const params = new URLSearchParams({ order_id: orderId });
+  const response = await fetchImpl(`${ETHENA_URL}order-confirmation?${params}`, {
+    signal: options.signal,
+  });
+  const result = await response.json();
+  if (!response.ok || (result && typeof result === "object" && "error" in result)) {
+    const message = result && typeof result === "object" && "error" in result
+      ? String(result.error)
+      : `HTTP ${response.status}`;
+    throw new Error(`Ethena order confirmation 查询失败: ${message}`);
+  }
+  return result;
+}

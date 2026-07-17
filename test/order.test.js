@@ -3,6 +3,7 @@ const test = require("node:test");
 
 const {
   createOrder,
+  getOrderConfirmation,
   getOrderTypedData,
   submitOrder
 } = require("../dist");
@@ -74,4 +75,30 @@ test("submitOrder sends the signed order to the official order endpoint", async 
   assert.equal(request.options.method, "POST");
   assert.deepEqual(JSON.parse(request.options.body), order);
   assert.deepEqual(result, { tx: "0xtx" });
+});
+
+test("getOrderConfirmation reads the official confirmation endpoint", async () => {
+  let requestedUrl;
+  let requestedOptions;
+  const signal = new AbortController().signal;
+  const result = await getOrderConfirmation("RFQ-TEST", async (url, options) => {
+    requestedUrl = String(url);
+    requestedOptions = options;
+    return {
+      ok: true,
+      json: async () => ({
+        order_id: "RFQ-TEST",
+        status: "confirmed",
+        tx_hash: "0xtx"
+      })
+    };
+  }, { signal });
+
+  assert.equal(requestedUrl, "https://public.api.ethena.fi/order-confirmation?order_id=RFQ-TEST");
+  assert.equal(requestedOptions.signal, signal);
+  assert.deepEqual(result, {
+    order_id: "RFQ-TEST",
+    status: "confirmed",
+    tx_hash: "0xtx"
+  });
 });

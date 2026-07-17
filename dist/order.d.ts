@@ -68,4 +68,7 @@ export declare function getOrderTypedData(order: OrderSending): {
     };
 };
 export declare function submitOrder(order: OrderSending, signature: Hex, fetchImpl?: typeof fetch): Promise<any>;
+export declare function getOrderConfirmation(orderId: string, fetchImpl?: typeof fetch, options?: {
+    signal?: AbortSignal;
+}): Promise<any>;
 export {};

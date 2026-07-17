@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.submitOrder = exports.getOrderTypedData = exports.createOrder = exports.VERIFY_ORDER_ABI = exports.MINT_ADDRESS = exports.getRfq = void 0;
+exports.submitOrder = exports.getOrderTypedData = exports.getOrderConfirmation = exports.createOrder = exports.VERIFY_ORDER_ABI = exports.MINT_ADDRESS = exports.getRfq = void 0;
 var rfq_1 = require("./rfq");
 Object.defineProperty(exports, "getRfq", { enumerable: true, get: function () { return rfq_1.getRfq; } });
 var protocol_1 = require("./protocol");
@@ -8,5 +8,6 @@ Object.defineProperty(exports, "MINT_ADDRESS", { enumerable: true, get: function
 Object.defineProperty(exports, "VERIFY_ORDER_ABI", { enumerable: true, get: function () { return protocol_1.VERIFY_ORDER_ABI; } });
 var order_1 = require("./order");
 Object.defineProperty(exports, "createOrder", { enumerable: true, get: function () { return order_1.createOrder; } });
+Object.defineProperty(exports, "getOrderConfirmation", { enumerable: true, get: function () { return order_1.getOrderConfirmation; } });
 Object.defineProperty(exports, "getOrderTypedData", { enumerable: true, get: function () { return order_1.getOrderTypedData; } });
 Object.defineProperty(exports, "submitOrder", { enumerable: true, get: function () { return order_1.submitOrder; } });
