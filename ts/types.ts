@@ -1,5 +1,6 @@
 import { Hex, Address } from "viem";
 export type { Rfq } from "./rfq";
+export type { OrderSending } from "./order";
 
 export enum SignatureType {
   EIP712 = 0,
@@ -21,14 +22,6 @@ export interface OrderBase {
   beneficiary: Address;
   collateral_asset: Address;
   order_id: string;
-}
-
-export interface OrderSending extends OrderBase {
-  nonce: number;
-  expiry: number;
-  order_type: Side;
-  usde_amount: string;
-  collateral_amount: string;
 }
 
 export interface OrderSigning extends OrderBase {

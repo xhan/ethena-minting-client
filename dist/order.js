@@ -10,7 +10,7 @@ function createOrder(rfq, benefactor, beneficiary, options = {}) {
         order_id: rfq.rfq_id,
         order_type: rfq.side,
         expiry: Math.floor(now / 1000) + 60,
-        nonce: now,
+        nonce: options.nonce ?? now,
         benefactor,
         beneficiary,
         collateral_asset: rfq.collateral_asset_address,

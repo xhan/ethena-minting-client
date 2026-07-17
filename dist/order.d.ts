@@ -14,6 +14,7 @@ export interface OrderSending {
 }
 interface CreateOrderOptions {
     now?: number;
+    nonce?: number;
 }
 export declare function createOrder(rfq: Rfq, benefactor: Address, beneficiary: Address, options?: CreateOrderOptions): OrderSending;
 export declare function getOrderTypedData(order: OrderSending): {

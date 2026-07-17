@@ -18,6 +18,7 @@ export interface OrderSending {
 
 interface CreateOrderOptions {
   now?: number;
+  nonce?: number;
 }
 
 export function createOrder(
@@ -32,7 +33,7 @@ export function createOrder(
     order_id: rfq.rfq_id,
     order_type: rfq.side,
     expiry: Math.floor(now / 1000) + 60,
-    nonce: now,
+    nonce: options.nonce ?? now,
     benefactor,
     beneficiary,
     collateral_asset: rfq.collateral_asset_address,
